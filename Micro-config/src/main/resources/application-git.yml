@@ -1,0 +1,41 @@
+info:
+  version: "Micro-config 1.0 Git"
+server:
+  port: 7003
+spring:
+  profiles:
+    active: git
+  application:
+    name: Micro-config
+    
+---
+spring:
+  profiles: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/funnyboy0128/sp-config-server  # 配置git仓库的地址
+          search-paths: config-repo                              # git仓库地址下的相对地址，可以配置多个，用,分割。
+          username: funnyboy0128                                 # git仓库的账号
+          password: dingxi@163.com                               # git仓库的密码          
+eureka:
+  instance:
+    preferIpAddress: true
+    health-check-url-path: /actuator/health
+    status-page-url-path: /actuator/info
+    lease-renewal-interval-in-seconds: 10
+  client:
+    registry-fetch-interval-seconds: 10
+    serviceUrl:
+       defaultZone: http://localhost:8761/eureka/      
+management:
+  endpoints:
+    health:
+      show-details: always
+    web:
+      exposure:
+        include: "*"
+logging:
+  file: C:/log/boeConfig.log
+  level.root: INFO

@@ -1,0 +1,28 @@
+.treeTable-empty {
+    width: 20px;
+    display: inline-block;
+}
+
+.treeTable-icon {
+    cursor: pointer;
+}
+
+.treeTable-icon .layui-icon-triangle-d:before {
+    content: "\e623";
+}
+
+.treeTable-icon.open .layui-icon-triangle-d:before {
+    content: "\e625";
+    background-color: transparent;
+}
+
+.treeTable-data {
+    margin-left: 20px;
+}
+
+.layui-icon~.treeTable-data {
+    margin-left: 4px;
+}
+.layui-table-fixed.layui-table-fixed-r{
+    right: 0 !important;
+}

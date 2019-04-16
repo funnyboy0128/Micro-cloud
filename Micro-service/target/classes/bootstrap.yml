@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: demoService
+  profiles:
+    active: dev
+  cloud:
+    config:
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        serviceId: Micro-config
+---
+## dev环境
+spring:
+  profiles: dev
+
+---
+## prod环境
+spring:
+  profiles: prod
+    

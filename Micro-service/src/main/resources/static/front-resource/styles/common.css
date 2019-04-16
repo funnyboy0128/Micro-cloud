@@ -1,0 +1,284 @@
+@charset "UTF-8";
+/**
+ * @file 定义全局通用样式
+ * @author pjtools(pjtools@vip.qq.com)
+ */
+
+/*----- Page Loading预加载 Start -----*/
+@keyframes rotate-one {
+  0% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(-45deg) rotateZ(360deg);
+  }
+}
+@keyframes rotate-two {
+  0% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(50deg) rotateY(10deg) rotateZ(360deg);
+  }
+}
+@keyframes rotate-three {
+  0% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
+  }
+}
+
+.page-spin-loading-box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 999999;
+}
+.page-spinner-box {
+  position: relative;
+  top: calc(50% - 64px);
+  left: calc(50% - 64px);
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  perspective: 800px;
+}
+.page-spinner-box .inner {
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.page-spinner-box .inner.one {
+  left: 0%;
+  top: 0%;
+  animation: rotate-one 1s linear infinite;
+  border-bottom: 3px solid #1890ff;
+}
+.page-spinner-box .inner.two {
+  right: 0%;
+  top: 0%;
+  animation: rotate-two 1s linear infinite;
+  border-right: 3px solid #fa541c;
+}
+.page-spinner-box .inner.three {
+  right: 0%;
+  bottom: 0%;
+  animation: rotate-three 1s linear infinite;
+  border-top: 3px solid #a0d911;
+}
+/*----- Page End预加载 End -----*/
+
+/*----- IFrame Page Loading预加载 Start -----*/
+.loading-cube-box {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  left: 50%;
+  margin-left: -20px;
+  font-size: 24px;
+  text-align: center;
+  transform-style: preserve-3d;
+  transition: transform .5s .2s;
+  perspective: 9999px;
+  margin: 0 auto;
+  opacity: 1;
+}
+.loading-cube-box.loading-cube-animate {
+  top: 35%;
+  margin-top: -20px;
+  animation: loading-cube-flipping 2.5s infinite forwards;
+  z-index: 100;
+}
+.loading-cube-box.loading-cube-animate .loading-cube-face {
+  color: #fff;
+  box-shadow: inset 0 0 0 1px #fff, 0 0 0 1px #fff;
+}
+.loading-cube-box .loading-cube-face {
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  background-color: #fff;
+  opacity: 1;
+}
+.loading-cube-box .cube-face-front {
+  transform: translate3d(0, 0, 20px);
+  background-color: #40a9ff;
+}
+.loading-cube-box .cube-face-back {
+  transform: rotateY(180deg) translate3d(0, 0, 20px);
+  background-color: #36cfc9;
+}
+.loading-cube-box .cube-face-left {
+  transform: rotateY(-90deg) translate3d(0, 0, 20px);
+  background-color: #ff4d4f;
+}
+.loading-cube-box .cube-face-right {
+  transform: rotateY(90deg) translate3d(0, 0, 20px);
+  background-color: #73d13d;
+}
+.loading-cube-box .cube-face-top {
+  transform: rotateX(90deg) translate3d(0, 0, 20px);
+  background-color: #ffec3d;
+}
+.loading-cube-box .cube-face-bottom {
+  transform: rotateX(-90deg) translate3d(0, 0, 20px);
+  background-color: #ff7a45;
+}
+@keyframes loading-cube-flipping {
+  0% {
+    transform: rotateY(0deg) rotateZ(0deg);
+  }
+  20% {
+    transform: rotateY(90deg) rotateZ(0deg);
+  }
+  40% {
+    transform: rotateX(45deg) rotateZ(45deg);
+  }
+  60% {
+    transform: rotateX(90deg) rotateY(180deg) rotateX(90deg);
+  }
+  80% {
+    transform: rotateX(310deg) rotateZ(230deg);
+  }
+  100% {
+    transform: rotateX(360deg) rotateZ(360deg);
+  }
+}
+
+/*----- IFrame Page Loading预加载 End -----*/
+
+/*----- IFrame Page Footer页脚 Start -----*/
+.iframe-page-layout-footer {
+  position: relative;
+  width: 100%;
+  padding: 36px 16px 24px;
+  box-sizing: border-box;
+}
+.iframe-page-layout-footer .iframe-page-footer-links {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.iframe-page-layout-footer .iframe-page-footer-links > a {
+  color: rgba(0, 0, 0, .45);
+  transition: all .3s;
+  font-size: 14px;
+  text-decoration: none;
+}
+.iframe-page-layout-footer .iframe-page-footer-links > a:hover {
+  color: rgba(0, 0, 0, .6);
+  cursor: pointer;
+}
+.iframe-page-layout-footer .iframe-page-footer-links > a:not(:last-child) {
+  margin-right: 20px;
+}
+.iframe-page-layout-footer .iframe-page-footer-copyright {
+  width: 100%;
+  text-align: center;
+  color: rgba(0, 0, 0, .45);
+  font-size: 14px;
+}
+/*----- IFrame Page Footer页脚 End -----*/
+
+/* ----- Webkit滚动条 Start */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar-thumb:hover {
+  border-radius: 3px;
+  box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.2);
+}
+/* ----- Webkit滚动条 End */
+
+/* body */
+body {
+  font-size: 14px;
+  color: #555;
+}
+
+/* input */
+::-webkit-input-placeholder {
+	color: #ccc
+}
+
+/* 内间距 */
+.padding15 {
+  padding: 15px !important;
+}
+
+/* 字体字号 */
+.font12 {
+  font-size: 12px !important;
+}
+.font14 {
+  font-size: 14px !important;
+}
+.font16 {
+  font-size: 16px !important;
+}
+.font18 {
+  font-size: 18px !important;
+}
+.font20 {
+  font-size: 20px !important;
+}
+.font24 {
+  font-size: 24px !important;
+}
+.font32 {
+  font-size: 32px !important;
+}
+
+
+#modalRoleOrg{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e9e9e9;
+  height: 100%;
+  box-sizing: border-box;
+}
+#modalRoleOrg .tree-box{
+  flex-grow: 1;
+  height: 100%;
+  overflow-y: auto;
+}
+#modalRoleOrg .modal-selected-table{
+  width: 240px;
+  min-width: 240px;
+  padding: 0 10px;
+  border-left: 1px solid #e9e9e9;
+  height: 100%;
+}
+/*.layui-table, .layui-table-view{*/
+  /*margin: 0;*/
+/*}*/
+
+/*.layui-layer .layui-table-view, .layui-layer .layui-table-box{*/
+  /*height: 100%!important;*/
+/*}*/
+/*.layui-layer .layui-table-box .layui-table-body{*/
+  /*height: calc(100% - 40px)!important;*/
+/*}*/
+/*.layui-layer .layui-table-box table!*, .layui-layer .layui-table-box table > thead > tr > th > .layui-table-cell*!{*/
+  /*width: 100%;*/
+/*}*/
+.layui-table-link-visited{
+  color: #FF5722;
+}

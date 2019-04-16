@@ -1,0 +1,93 @@
+@charset 'UTF-8';
+#riskPointParamContainer{
+  height: 100%;
+  position: relative;
+}
+#riskPointParamContainer .param-container{
+  background: #eff1f5;
+  padding: 10px 0 0 10px;
+  position: relative;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#riskPointParamContainer .param-container .param-content{
+  overflow: auto;
+  height: 100%;
+}
+.control-box, .global-msg-box{
+  width: 100%;
+}
+.control-title{
+  height: 40px;
+  line-height: 40px;
+  background: #fff;
+  border-bottom: 1px solid #d9d9d9;
+  padding-left: 15px;
+  display: flex;
+}
+.control-title > .title-checkbox{
+  margin-right: 20px;
+  min-width: 200px;
+}
+.control-title > .title-checkbox > span{
+  font-size: 16px;
+  color: #333;
+}
+.control-title > .type-box{
+  flex-grow: 1;
+}
+.control-title > .type-box > .layui-form-radio{
+  margin-top: 0;
+}
+.control-content{
+  background: #fff;
+  padding: 10px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+  margin-bottom: 10px;
+}
+.control-content .item-control-content{
+  margin: 5px 20px 5px 0;
+}
+.control-content .item-control-content .select2-container--default .select2-selection--single .select2-selection__rendered{
+  height: 28px;
+  line-height: 28px;
+}
+.risk-table{
+  width: 100%;
+  min-width: 100%
+}
+.btn-box{
+  padding: 5px 0;
+}
+.layui-input.overdue{
+  height: 26px;
+  line-height: 26px;
+}
+.btn-container{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.item-control-content .layui-form-checkbox[lay-skin=primary] span{
+  padding-right: 0;
+}
+.global-msg-box .title{
+  font-size: 18px;
+  padding: 10px 0;
+}
+.global-msg-box .tips{
+  font-size: 12px;
+  padding: 10px 0;
+  color: #333;
+}
+.select-box{
+  width: 150px;
+  display: inline-block;
+}
+.select-box .select2-container{
+  width: 100% !important;
+}
+.user-select-box{
+  display: flex;
+}

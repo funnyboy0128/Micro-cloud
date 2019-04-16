@@ -1,0 +1,73 @@
+info:
+  version: "Micro-gateway 1.0"
+server:
+  port: 7001
+  tomcat:
+    max-threads: 200
+    max-connections: 200
+    min-spare-threads: 5
+    
+spring:
+  application:
+    name: Micro-gateway
+  cloud:
+    gateway:
+      # 启用通过服务发现实现路由
+      discovery:
+        locator:
+          enabled: true
+      routes:
+      - id: MICRO-SERVICE
+        uri: lb://DEMOSERVICE
+        predicates:
+        - Path=/demoService/**
+        filters:
+        - StripPrefix=0
+      - id: MICRO-FEIGN
+        uri: lb://FEIGN
+        predicates:
+        - Path=/feign/**
+        filters:
+        - StripPrefix=0
+              
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+    health-check-url-path: /actuator/health
+    status-page-url-path: /actuator/info
+    
+management:
+  endpoints:
+    web:
+      exposure:  
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+      
+logging:
+  file: /home/log/boeGateway.log
+  level:
+    root: INFO
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+  command:
+    default:
+     execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 120000
+ribbon:
+    ConnectTimeout: 250
+    ReadTimeout: 300000
+    MaxAutoRetries: 2                #重试次数
+    MaxAutoRetriesNextServer: 2      #重试服务次数
+    OkToRetryOnAllOperations: true   #所有请求都开启重试
+

@@ -1,0 +1,42 @@
+info:
+  version: "Micro-admin 1.0"
+server:
+  port: 7002
+  tomcat:
+    max-threads: 200  
+#  servlet:
+#    context-path: /admin
+spring:
+  application:
+    name: Micro-admin
+  security:
+      user:
+        name: "admin"
+        password: "123456"
+#  security:
+#    user:
+#      name: admin
+#      password: 123456
+eureka:
+  instance:
+    health-check-url-path: /actuator/health
+    lease-renewal-interval-in-seconds: 10
+    metadata-map:
+      user.name: "admin"
+      user.password: "123456"
+  client:
+    registry-fetch-interval-seconds: 10
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+logging:
+  file: C:/log/boeEureka.log
+  level:
+    root: INFO

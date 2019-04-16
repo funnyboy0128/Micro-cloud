@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="">
+<title>流程模版设计器</title>
+<link href="../plugins/layui/css/layui.css" rel="stylesheet" type="text/css">
+<link type="text/css" rel="stylesheet" href="../fonts/iconfont/iconfont.css">
+<link href="../plugins/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css">
+<link href="../styles/main.css" rel="stylesheet" type="text/css">
+<link href="../plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css">
+<link href="modules/designer/designer.css" type="text/css" rel="stylesheet" />
+<link href="modules/designer/attribute/attribute.css" type="text/css" rel="stylesheet" />
+<script src="modules/designer/draw2d/wz_jsgraphics.js"></script>
+<script src='modules/designer/draw2d/mootools.js'></script>
+<script src='modules/designer/draw2d/moocanvas.js'></script>
+<script src='modules/designer/draw2d/draw2d.js'></script>
+<script src="modules/designer/event/Start.js"></script>
+<script src="modules/designer/event/End.js"></script>
+<script src="modules/designer/connection/MyInputPort.js"></script>
+<script src="modules/designer/connection/MyOutputPort.js"></script>
+<script src="modules/designer/connection/DecoratedConnection.js"></script>
+<script src="modules/designer/task/Task.js"></script>
+<script src="modules/designer/task/UserTask.js"></script>
+<script src="modules/designer/task/ManualTask.js"></script>
+<script src="modules/designer/task/ServiceTask.js"></script>
+<script src="modules/designer/task/ScriptTask.js"></script>
+<script src="modules/designer/task/MailTask.js"></script>
+<script src="modules/designer/task/ReceiveTask.js"></script>
+<script src="modules/designer/task/BusinessRuleTask.js"></script>
+<script src="modules/designer/gateway/ExclusiveGateway.js"></script>
+<script src="modules/designer/gateway/InclusiveGateway.js"></script>
+<script src="modules/designer/gateway/ParallelGateway.js"></script>
+<script src="modules/designer/boundaryevent/TimerBoundary.js"></script>
+<script src="modules/designer/boundaryevent/ErrorBoundary.js"></script>
+<script src="modules/designer/subprocess/CallActivity.js"></script>
+<script src="modules/designer/designer.js"></script>
+<script src="modules/designer/ResizeImage.js"></script>
+<script src="modules/designer/MyCanvas.js"></script>
+<script src="modules/designer/designerHelper.js"></script>
+<script type="text/javascript" src="modules/designer/jquery/jquery-1.7.2.min.js"></script>
+<style>
+#actAttrPanel .layui-table, #actAttrPanel .layui-table-view {
+	margin: 0px;
+}
+</style>
+<link type="text/css" rel="stylesheet" href="index.css">
+</head>
+<body id="designer" style="overflow: hidden;">
+  <div id="btnTools" class="layui-hide"></div>
+	<div id="menu">
+		<div class="list-title">
+			<span>分类</span>
+			<div style="float:right;">
+				<button id="addCategory" class="layui-btn geo-btn-illusory" style="padding: 0 3px; margin-left:2px;" title="添加" onclick="addProcessCategory()"><i class="iconfont icon-caozuotuhui-9"></i>添加</button>
+				<button id="updateCategory" class="layui-btn geo-btn-illusory" style="padding: 0 3px; margin-left:2px;" title="编辑" onclick="updateProcessCategory()"><i class="iconfont icon-caozuotuhui-13"></i>编辑</button>
+				<button id="deleteCategory" class="layui-btn geo-btn-illusory" style="padding: 0 3px; margin-left:2px;" title="删除" onclick="deleteProcessCategory()"><i class="iconfont icon-caozuotuhui-2"></i>删除</button>
+				<div class="swith-btn-left"><i class="iconfont icon-zuo"></i></div>
+			</div>
+		</div>
+		<div id="treeProcessCategory" class="ztree scrollbar"></div>
+	</div>
+	<div id="dragbar"></div>
+	<div id="right">
+		<div class="form-box scrollbar layui-form">
+			<div class="layui-tab layui-tab-card" lay-filter="designer">
+				<div class="list-title">
+					<ul class="layui-tab-title">
+						<div class="swith-btn-left-open">
+							<i class="iconfont icon-you"></i>
+						</div>
+						<li lay-id="designerTab" class="layui-this"><i class="iconfont icon-caozuotuhui-13"></i>设计</li>
+						<li lay-id="codeTab"><i class="iconfont icon-caozuotuhui-14"></i>代码</li>
+					</ul>
+					<div class="layui-btn-container">
+						<!-- button id="openProcess" class="layui-btn geo-btn-illusory" title="打开"><i class="iconfont icon-caozuotuhui-1"></i><em>打开</em>
+						</button -->
+						<!-- <button id="saveProcess" class="layui-btn geo-btn-illusory" title="保存" onclick="saveProcess()"><i class="iconfont icon-caozuotuhui-1"></i><em>保存</em> -->
+						<!-- </button> -->
+						<button id="deployModel" class="layui-btn geo-btn-illusory" title="发布"
+							onclick="deployModel()">
+							<i class="iconfont icon-caozuotuhui-11"></i><em>发布</em>
+						</button>
+						<!-- <button id="openProperties" class="layui-btn geo-btn-illusory" title="属性"
+							onclick="openCurrElementProperties()">
+							<i class="iconfont icon-attribute-tool"></i><em>属性</em>
+						</button> -->
+						<button id="configDoc" class="layui-btn geo-btn-illusory" title="附件设置"
+							onclick="openCurrElementDocConfig()">
+							<i class="iconfont icon-kongjian-26"></i><em>附件设置</em>
+						</button>
+						<button id="deleteProcess" class="layui-btn geo-btn-illusory" title="删除"
+							onclick="deleteProcess()">
+							<i class="iconfont icon-caozuotuhui-2"></i><em>删除</em>
+						</button>
+						<div class="layui-btn-import-export">
+							<!-- <button id="paramConfig" class="layui-btn geo-btn-illusory" title="初始化参数">
+								<i class="iconfont icon-caozuotuhui-9"></i><em>初始化参数</em>
+							</button>
+							<button id="globalSetting" class="layui-btn geo-btn-illusory" title="全局设置">
+								<i class="iconfont icon-set-fill"></i><em>全局设置</em>
+							</button>
+							<button id="batchSetting" class="layui-btn geo-btn-illusory" title="批量设置">
+								<i class="iconfont icon-setting"></i><em>批量设置</em>
+							</button> -->
+							<!-- <button id="importProcess" class="layui-btn geo-btn-illusory" title="导入">
+								<i class="iconfont icon-operation-import"></i><em>导入</em>
+							</button> -->
+							<!-- <button id="exportProcess" class="layui-btn geo-btn-illusory" title="导出">
+								<i class="iconfont icon-operation-export"></i><em>导出</em>
+							</button> -->
+							<!-- <button id="cloneProcess" class="layui-btn geo-btn-illusory" title="克隆">
+								<i class="iconfont icon-paste-tool"></i><em>克隆</em>
+              </button>
+              <button id="moreTool" class="layui-btn geo-btn-illusory" title="更多" 
+                  refid="paramConfig;globalSetting;batchSetting"
+                  reficon="icon-caozuotuhui-9;icon-set-fill;icon-setting"
+                  refname="初始化参数;全局设置;批量设置">
+								<i class="iconfont icon-more"></i><em>更多</em>
+              </button> -->
+						</div>
+						<i id="dragopen" class="iconfont icon-xiala li-right"></i>
+						<div class="swith-btn-right-open">
+							<i class="iconfont icon-zuo"></i>
+						</div>
+					</div>
+				</div>
+				<div class="layui-tab-content">
+					<div class="layui-tab-item layui-show">
+						<div class="noinfo">
+							<img src="modules/designer/img/noinfo.png">
+							<p>请点击左边模版树的节点，对模版进行编辑，或指定模版分类新建流程模版</p>
+							<button id="createProcess" class="layui-btn geo-btn-default layui-btn-lg" style="display:none;">新建流程模版</button>
+						</div>
+						<div class="edit-box">
+							<div id="divDesigner"
+								style="width: 98%; padding: 0; border: none; display: none;">
+								<div id="designer-area" title="设计" class="scrollbar"
+									style="position: absolute; width: 98%; padding: 0; border: 0px; overflow: auto;">
+									<div id="paintarea"
+										style="position: absolute; width: 2000px; height: 2000px;"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-tab-item">
+						<textarea id="descriptorarea" rows="38"
+							style="width: 100%; height: 100%; padding: 0; border: 0px; font-size: 12px"
+							readonly="readonly"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="assembly-box scrollbar">
+			<div class="list-title">
+				<span>组件</span>
+				<div class="swith-btn-right">
+					<i class="iconfont icon-you"></i>
+				</div>
+			</div>
+			<div class="title"></div>
+			<ul class="layui-col-space5 list">
+				<li class="layui-col-xs12">
+					<a href="javascript:void(0)" class="dragbutton" plain="true" wfModel="Start"><i class="iconfont icon-kongjian-22"></i>开始</a>
+				</li>
+				<li class="layui-col-xs12">
+					<a href="javascript:void(0)" class="dragbutton" plain="true" wfModel="End"><i class="iconfont icon-kongjian-25"></i>结束</a>
+				</li>
+				<li class="layui-col-xs12">
+					<a href="javascript:void(0)" class="dragbutton" plain="true" wfModel="UserTask"><i class="iconfont icon-kongjian-23"></i>活动</a>
+				</li>
+				<li class="layui-col-xs12">
+					<a href="javascript:void(0)" class="dragbutton" plain="true" wfModel="InclusiveGateway"><i class="iconfont icon-kongjian-3"></i>条件</a>
+				</li>
+				<div class="layui-clear"></div>
+			</ul>
+		</div>
+	</div>
+</body>
+<script src="../plugins/layui/layui.all.js"></script>
+<script src="../plugins/jQuery/jquery-ui.min.js"></script>
+<script src="../utils/common.js"></script>
+<script src="../utils/formHelper.js"></script>
+<script src="../plugins/layui.geo/modalHelper.js"></script>
+<script src="../plugins/es6.shim/polyfill.min.js"></script>
+<script src="../plugins/zTree/js/jquery.ztree.core.js"></script>
+<script src="../plugins/zTree/js/jquery.ztree.exedit.js"></script>
+<script src="../plugins/zTree/js/jquery.ztree.excheck.js"></script>
+<script src="../plugins/zTree/js/jquery.ztree.exhide.js"></script>
+<script src="../plugins/select2/js/select2.full.min.js"></script>
+<script src="modules/showRolesEmpleeModal.js"></script>
+<script src="modules/designer/attribute/attributeHelper.js"></script>
+<script src="modules/designer/attribute/activityAttribute.js"></script>
+<script src="modules/designer/attribute/processAttribute.js"></script>
+<script src="modules/designer/attribute/lineAttribute.js"></script>
+<script src="modules/categoryTreeHelper.js"></script>
+<script src="modules/paramConfigHelper.js"></script>
+<script src="index.js"></script>
+</html>

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: Micro-turbine
+Implementation-Version: 1.0-SNAPSHOT
+Built-By: funnyboy
+Implementation-Vendor-Id: com.funnyboy.it
+Build-Jdk: 1.8.0_151
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/Micro-Cloud/Micro-turbine
+Created-By: Maven Integration for Eclipse
+

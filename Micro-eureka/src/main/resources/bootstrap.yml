@@ -1,0 +1,40 @@
+info:
+  version: "Micro-eureka 1.0"
+server:
+  port: 8761
+  tomcat:
+    max-threads: 200
+#  servlet:
+#    context-path: /eureka
+spring:
+  application:
+    name: Micro-eureka
+#  security:
+#    user:
+#      name: admin
+#      password: 123456
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    registry-fetch-interval-seconds: 10
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+#自我保护模式
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 20000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+logging:
+  file: C:/log/boeEureka.log
+  level:
+    root: INFO

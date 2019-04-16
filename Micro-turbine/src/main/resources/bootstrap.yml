@@ -1,0 +1,76 @@
+info:
+  version: "Micro-turbine Service 1.0"
+server:
+  port: 7006
+  tomcat:
+    max-threads: 200
+    max-connections: 200
+    min-spare-threads: 5
+  servlet:
+    context-path: /turbine
+
+turbine:
+  app-config: hystrix        #配置Eureka中需要监控的服务列表
+  aggregator:
+    clusterConfig: default   #制定聚合哪些集群，默认default
+  clusterNameExpression: new String("default")
+  combine-host: true
+  instanceUrlSuffix:
+    default:actuator/hystrix.stream    
+
+feign:
+  hystrix:
+    enabled: true   #手动开启Feign对Hystrix的支持
+    
+spring:
+  application:
+    name: turbine
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+    health-check-url-path: ${server.servlet.context-path}/actuator/health
+    status-page-url-path: ${server.servlet.context-path}/actuator/info
+    home-page-url-path: ${server.servlet.context-path}
+    metadataMap:
+      management:
+        context-path: ${server.servlet.context-path}/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  security:
+    enabled: false
+
+logging:
+  file: /home/log/boeDemoService.log
+  level:
+    root: INFO
+    org.apache.kafka.clients: WARN
+    org.apache.kafka.common: WARN
+    druid.sql.Statement: DEBUG
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+  command:
+    default:
+     execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 120000
+ribbon:
+    ReadTimeout: 300000     #请求处理超时设置
+    ConnectTimeout: 250     #请求连接超时设置
+    MaxAutoRetries: 2  #重试次数
+    MaxAutoRetriesNextServer: 2 #重试服务次数
+    OkToRetryOnAllOperations: true #所有请求都开启重试
+      
+        

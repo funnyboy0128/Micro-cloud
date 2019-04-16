@@ -1,0 +1,65 @@
+info:
+  version: "DemoService 1.0 Prod"
+server:
+  port: 8001
+  tomcat:
+    max-threads: 200
+    max-connections: 200
+    min-spare-threads: 5
+  servlet:
+    context-path: /demoService
+spring:
+  application:
+    name: demoService
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/micro-demo?useUnicode=true&characterEncoding=utf-8&autoReconnect=true
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+    health-check-url-path: ${server.servlet.context-path}/actuator/health
+    status-page-url-path: ${server.servlet.context-path}/actuator/info
+    home-page-url-path: ${server.servlet.context-path}
+    metadataMap:
+      management:
+        context-path: ${server.servlet.context-path}/actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+logging:
+  file: /home/log/boeDemoService.log
+  level:
+    root: INFO
+    org.apache.kafka.clients: WARN
+    org.apache.kafka.common: WARN
+    druid.sql.Statement: DEBUG
+hystrix:
+  threadpool:
+    default:
+      coreSize: 500
+  command:
+    default:
+     execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 120000
+ribbon:
+    ConnectTimeout: 250
+    ReadTimeout: 300000
+    MaxAutoRetries: 2  #重试次数
+    MaxAutoRetriesNextServer: 2 #重试服务次数
+    OkToRetryOnAllOperations: true #所有请求都开启重试

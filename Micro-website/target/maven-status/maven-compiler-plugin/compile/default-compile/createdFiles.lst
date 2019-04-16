@@ -1,0 +1,8 @@
+com\funnyboy\it\model\Demo.class
+com\funnyboy\it\service\DemoService.class
+com\funnyboy\it\repository\DemoRepository.class
+com\funnyboy\it\web\controller\DemoController.class
+com\funnyboy\it\service\impl\DemoServiceImpl.class
+com\funnyboy\it\web\controller\RemoteController.class
+com\funnyboy\it\WebsiteApplication.class
+com\funnyboy\it\bootstrap\WebsiteBootstrap.class
